@@ -1,0 +1,2315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Amr</title>
+  
+  <!-- style -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    /* global rules */
+    @font-face {
+      font-family: "Cairo";
+      src: url(https://fonts.gstatic.com/s/cairo/v28/SLXgc1nY6HkvangtZmpQdkhzfH5lkSs2SgRjCAGMQ1z0hOA-a1PiLC2EikE.woff2);
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --main-color: #2196f3;
+      --main-color-alt: #1787e0;
+      --head-height: 72px;
+      --transition: .3s;
+      --padding: 100px;
+      --section-bg: #ececec;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: Cairo;
+    }
+    
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    
+    a {
+      text-decoration: none;
+    }
+    
+    section {
+      padding-block: var(--padding);
+      /* background: #fff !important;
+      
+      &:nth-child(2n) {
+        background: var(--section-bg) !important;
+      } */
+    }
+    
+    .container {
+      padding-inline: 15px;
+      margin-inline: auto;
+      
+      @media (min-width: 768px) {
+        width: 750px;
+      }
+      
+      @media (min-width: 992px) {
+        width: 970px;
+      }
+      
+      @media (min-width: 1200px) {
+        width: 1170px;
+      }
+    }
+    
+    .main-title {
+      position: relative;
+      font-size: 30px;
+      width: fit-content;
+      border: 2px solid #000;
+      margin: 0 auto 80px;
+      padding: 10px 20px;
+      z-index: 1;
+      transition: var(--transition);
+      
+      &:before, &:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--main-color);
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+      }
+      
+      &:before {
+        left: -30px;
+      }
+      
+      &:after {
+        right: -30px;
+      }
+      
+      &:hover {
+        color: #fff;
+        border-color: #fff;
+        transition-delay: var(--transition);
+        
+        &:before {
+          z-index: -1;
+          animation: left-move var(--transition) linear forwards;
+        }
+        
+        &:after {
+          z-index: -1;
+          animation: right-move var(--transition) linear forwards;
+        }
+      }
+    }
+    
+    .spikes {
+      position: relative;
+      
+      &:after {
+        content: "";
+        position: absolute;
+        right: 0;
+        width: 100%;
+        height: 30px;
+        z-index: 1;
+        background-image: linear-gradient(135deg, #fff 25%, transparent 25%), 
+        linear-gradient(225deg, #fff 25%, transparent 25%);
+        background-size: 30px 30px;
+      }
+    }
+    
+    .up {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      background: var(--main-color);
+      color: #fff;
+      font-size: 25px;
+      border-radius: 50%;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 1;
+      animation: appear;
+      animation-timeline: scroll(y);
+    }
+    
+    /* header */
+    header {
+      position: relative;
+      background: #fff;
+      box-shadow: 0 0 10px #ddd;
+      
+      & .container {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      
+      & h3 {
+        font-size: 26px;
+        height: var(--head-height);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        
+        & .logo {
+          color: var(--main-color);
+        }
+        
+        @media (max-width: 767px) {
+          width: 100%;
+          height: 50px;
+        }
+      }
+      
+      & .main-nav {
+        display: flex;
+        
+        &>li>a {
+          position: relative;
+          height: var(--head-height);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: #000;
+          padding: 0 30px;
+          transition: var(--transition);
+          
+          &:hover {
+            color: var(--main-color);
+            background: #fafafa;
+            
+            &:before {
+              width: 100%;
+            }
+          }
+          
+          &:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 4px;
+            background: var(--main-color);
+            transition: var(--transition);
+          }
+        }
+        
+        @media (max-width: 767px) {
+          margin: auto;
+          
+          &>li>a {
+            padding: 10px;
+            font-size: 14px;
+            height: 40px;
+          }
+        }
+      }
+    }
+    
+    header .megamenu {
+      display: flex;
+      gap: 40px;
+      position: absolute;
+      left: 0;
+      top: calc(100% + 50px);
+      width: 100%;
+      padding: 30px;
+      background: #fff;
+      border-bottom: 3px solid var(--main-color);
+      z-index: -1;
+      opacity: 0;
+      transition: var(--transition);
+      
+      & .links {
+        min-width: 250px;
+        flex: 1;
+        
+        & li {
+          position: relative;
+          
+          &:not(:last-child) {
+            border-bottom: 1px solid #e9e6e6;
+          }
+          
+          &:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: #fafafa;
+            z-index: -1;
+            transition: var(--transition);
+          }
+          
+          &:hover:before {
+            width: 100%;
+          }
+        }
+        
+        & a {
+          color: var(--main-color);
+          padding: 15px;
+          display: block;
+          font-size: 1rem;
+          font-weight: bold;
+          
+          & i {
+            margin-right: 10px;
+          }
+        }
+      }
+      
+      & img {
+        max-width: 30%;
+        
+        @media (width <= 991px) {
+          display: none;
+        }
+      }
+      
+      @media (width <= 767px) {
+        flex-direction: column;
+        gap: 0;
+        padding: 5px;
+        
+        & .links:first-of-type li:last-child {
+          border-bottom: 1px solid #e9e6e6;
+        }
+      }
+    }
+    
+    /* header .main-nav li a:focus-within + .megamenu, */
+    header .main-nav li a:has(#open:checked) ~ .megamenu {
+      z-index: 100;
+      opacity: 1;
+      top: calc(100% + 1px);
+    }
+    
+    /* landing */
+    .landing {
+      position: relative;
+      /* background: transparent !important; */
+      padding-block: 0;
+      
+      & .container {
+        min-height: calc(100dvh - var(--head-height));
+        display: flex;
+        align-items: center;
+        padding-bottom: 120px;
+      }
+      
+      &:before {
+        content: "";
+        position: absolute;
+        top: -22px;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--section-bg);
+        z-index: -1;
+        transform: skewY(-6deg);
+        transform-origin: top left;
+      }
+      
+      & .text {
+        flex: 1;
+        
+        & h1 {
+          font-size: 40px;
+          margin: 0;
+          letter-spacing: -2px;
+        }
+        
+        & p {
+          font-size: 23px;
+          line-height: 1.7;
+          margin-top: 5px;
+          color: #666;
+          max-width: 500px;
+        }
+        
+        @media (max-width: 767px) {
+          & h1 {
+            font-size: 28px;
+          }
+          
+          & p {
+            font-size: 18px;
+          }
+        }
+        
+        @media (max-width: 991px) {
+          text-align: center;
+          
+          & p {
+            margin: auto;
+          }
+        }
+      }
+      
+      & img {
+        animation: up-and-down 5s linear infinite;
+        
+        @media (max-width: 991px) {
+          display: none;
+        }
+      }
+      
+      & .go-down {
+        color: var(--main-color);
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        transition: var(--transition);
+        
+        & i {
+          animation: bouncing 1.5s infinite;
+        }
+        
+        &:hover {
+          color: var(--main-color-alt);
+        }
+      }
+    }
+    
+    /* articles */
+    #articles {
+      position: relative;
+      
+      & .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 40px;
+      }
+      
+      & .box {
+        box-shadow: 0 2px 15px #eee;
+        background: #fff;
+        border-radius: 6px;
+        overflow: hidden;
+        transition: var(--transition);
+        
+        & img {
+          max-width: 100%;
+        }
+        
+        & .content {
+          padding: 20px;
+          
+          & h3 {
+            margin: 0;
+          }
+          
+          & p {
+            padding-top: 10px;
+            line-height: 1.5;
+            color: #777;
+          }
+        }
+        
+        & .info {
+          padding: 20px;
+          border-top: 1px solid #e6e6e7;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          
+          & a, & i {
+            color: var(--main-color);
+            font-weight: bold;
+          }
+        }
+        
+        &:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 12px 15px #ddd;
+          
+          & .info i {
+            animation: moving-arrow 1s linear infinite;
+          }
+        }
+      }
+    }
+    
+    /* gallery */
+    #gallery {
+      position: relative;
+      background: var(--section-bg);
+      
+      & .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 40px;
+      }
+      
+      & .box {
+        padding: 15px;
+        background: #fff;
+        box-shadow: 0px 12px 20px 0px rgb(0 0 0 / 13%), 0px 2px 4px 0px rgb(0 0 0 / 12%);
+      }
+      
+      & .image {
+        position: relative;
+        overflow: hidden;
+        
+        &:before {
+          content: "";
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: #fff;
+          width: 0;
+          height: 0;
+          z-index: 2;
+        }
+        
+        & img {
+          max-width: 100%;
+          transition: var(--transition);
+        }
+        
+        &:hover {
+          &:before {
+            animation: flashing .7s;
+          }
+          
+          & img {
+            transform: rotate(5deg) scale(1.1);
+          }
+        }
+      }
+    }
+    
+    /* features */
+    #features {
+      position: relative;
+      background: #fff;
+      
+      & .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 40px;
+      }
+      
+      & .box {
+        --color: attr(data-color type(<color>));
+        text-align: center;
+        border: 1px solid #ccc;
+        
+        & h2 {
+          position: relative;
+          font-size: 40px;
+          width: fit-content;
+          margin: auto;
+          
+          &:after {
+            content: "";
+            position: absolute;
+            bottom: -20px;
+            left: 15px;
+            height: 5px;
+            width: calc(100% - 30px);
+            background: var(--color);
+          }
+        }
+        
+        & p {
+          line-height: 2;
+          font-size: 20px;
+          color: #777;
+          margin: 30px 0;
+          padding: 25px;
+        }
+        
+        & a {
+          display: block;
+          border: 3px solid var(--color);
+          width: fit-content;
+          margin: 0 auto 30px;
+          padding: 10px 20px;
+          font-weight: bold;
+          font-size: 22px;
+          color: var(--color);
+          background: linear-gradient(to right, var(--color) 50%, #fff 50%);
+          background-size: 200% 100%;
+          background-position: right bottom;
+          transition: var(--transition);
+        }
+        
+        &:hover {
+          & .image:after {
+            clip-path: polygon(0 100%, 100% 100%, 0 0);
+          }
+          
+          & a {
+            color: #fff;
+            background-position: left bottom;
+          }
+        }
+      }
+      
+      & .image {
+        position: relative;
+        
+        & img {
+          max-width: 100%;
+        }
+        
+        &:before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: var(--color);
+          opacity: .3;
+        }
+        
+        &:after {
+          content: "";
+          position: absolute;
+          bottom: -1px;
+          right: 0;
+          width: 100%;
+          height: 100px;
+          background: #fff;
+          clip-path: polygon(0 100%, 100% 100%, 100% 0);
+          transition: var(--transition);
+        }
+      }
+    }
+    
+    /* testimonials */
+    #testimonials {
+      position: relative;
+      background: var(--section-bg);
+      
+      & .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 40px;
+      }
+      
+      & .box {
+        padding: 20px;
+        background: #fff;
+        box-shadow: 0 2px 4px #eee;
+        border-radius: 6px;
+        position: relative;
+        
+        & img {
+          position: absolute;
+          right: -10px;
+          top: -50px;
+          width: 100px;
+          height: 100px;
+          border-radius: 50%;
+          border: 10px solid var(--section-bg);
+        }
+        
+        & h3 { margin: 0 0 10px; }
+        
+        & .title {
+          display: block;
+          margin-bottom: 10px;
+          color: #777;
+        }
+        
+        & .rate {
+          color: gold;
+        }
+        
+        & p {
+          line-height: 1.5;
+          color: #777;
+          margin: 10px 0 0;
+        }
+      }
+    }
+    
+    /* team */
+    #team {
+      position: relative;
+      /* background: #fff; */
+      
+      & .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+      }
+      
+      & .box {
+        position: relative;
+        
+        &:before, &:after {
+          content: "";
+          position: absolute;
+          right: 0;
+          top: 0;
+          background: #f3f3f3;
+          width: 80%;
+          height: 100%;
+          border-radius: 10px;
+          z-index: -2;
+          transition: var(--transition);
+        }
+        
+        &:after {
+          background: #e4e4e4;
+          width: 0;
+          z-index: -1;
+        }
+      
+      & .data {
+        display: flex;
+        align-items: center;
+        padding-top: 60px;
+        
+        & img {
+          width: 100%;
+          border-radius: 10px;
+          transition: var(--transition);
+        }
+      }
+      
+      & .data .social {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        width: 60px;
+        
+        & a {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 60px;
+          height: 30px;
+          color: #777;
+          transition: var(--transition);
+          
+          &:hover {
+            color: var(--main-color);
+          }
+        }
+      }
+      
+      & .info {
+        padding-left: calc(20% + 20px);
+        
+        & h3 {
+          margin-bottom: 0;
+          color: var(--main-color);
+          font-size: 22px;
+          transition: var(--transition);
+        }
+        
+        & p {
+          margin: 10px 0 25px;
+        }
+      }
+      
+      &:hover {
+          &:after {
+            width: 80%;
+          }
+          
+          & img {
+            filter: grayscale(1);
+          }
+          
+          & .info h3 {
+            color: #777;
+          }
+        }
+      }
+    }
+    
+    /* services */
+    #services {
+      position: relative;
+      background: var(--section-bg);
+      
+      & .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 40px;
+      }
+      
+      & .box {
+        position: relative;
+        background: #fff;
+        box-shadow: 0 12px 20px 0 rgb(0 0 0 / 13%), 0 2px 4px 0 rgb(0 0 0 / 12%);
+        counter-increment: services;
+        transition: var(--transition);
+        
+        &:before {
+          content: "";
+          position: absolute;
+          top: -3px;
+          left: 50%;
+          transform: translateX(-50%);
+          height: 3px;
+          background: var(--main-color);
+          transition: var(--transition);
+          width: 0;
+        }
+        
+        &:hover {
+          transform: translateY(-10px);
+          
+          &:before {
+            width: 100%;
+          }
+        }
+      }
+      
+      & .box > i {
+        display: block;
+        text-align: center;
+        margin: 40px 0 20px;
+        color: #d5d5d5;
+      }
+      
+      & .box > h3 {
+        text-align: center;
+        margin: 20px 0 40px;
+        color: var(--main-color-alt);
+        font-size: 25px;
+      }
+      
+      & .box .info {
+        position: relative;
+        text-align: right;
+        background: #f9f9f9;
+        padding: 15px;
+        
+        & a { color: var(--main-color); }
+        
+        &:before {
+          content: "0" counter(services);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: absolute;
+          left: 0;
+          top: 0;
+          height: 100%;
+          width: 80px;
+          padding-right: 15px;
+          font-size: 30px;
+          font-weight: bold;
+          background: var(--main-color);
+          color: #fff;
+        }
+        
+        &:after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 80px;
+          width: 30px;
+          height: 100%;
+          transform: skew(-30deg);
+          background: #d5d5d5;
+        }
+      }
+    }
+    
+    /* skills */
+    #skills {
+      position: relative;
+      
+      & .container {
+        display: flex;
+        align-items: center;
+      }
+      
+      & ul {
+        flex: 1;
+        
+        & li {
+          --progress-number: attr(data-progress %);
+          --progress-string: attr(data-progress);
+        }
+        
+        & li h3 {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          
+          &:after {
+            content: var(--progress-string) "%";
+            font-size: 12px;
+            border: 1px solid #ccc;
+            padding: 3px 5px;
+            border-radius: 4px;
+            color: var(--main-color);
+          }
+        }
+        
+        & div {
+          height: 30px;
+          background: #eee;
+          position: relative;
+          
+          &:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background: var(--main-color);
+            width: var(--progress-number);
+            animation: expand linear;
+            animation-timeline: view();
+            animation-range: entry 0 cover 30%;
+          }
+        }
+      }
+      
+      & img {
+        @media (width <= 991px) {
+          display: none;
+        }
+      }
+    }
+    
+    /* work */
+    #work {
+      background: var(--section-bg);
+      
+      & .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+        & img {
+          margin-right: 100px;
+        }
+        
+        @media (width <= 991px) {
+          flex-direction: column;
+          
+          & img {
+            width: 300px !important;
+            margin: 0 0 50px;
+          }
+        }
+      }
+      
+      & .info .box {
+        display: flex;
+        align-items: center;
+        position: relative;
+        background: #f6f5f5;
+        padding: 25px;
+        margin-bottom: 20px;
+        border: 2px solid #fff;
+        border-radius: 6px;
+        z-index: 1;
+        
+        &:before {
+          content: "";
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: #ededed;
+          width: 0;
+          height: 0;
+          transition: var(--transition);
+          z-index: -1;
+        }
+        
+        &:hover:before {
+          width: 100%;
+          height: 100%;
+        }
+        
+        & i {
+          font-size: 30px;
+          padding-right: 25px;
+          color: var(--main-color);
+        }
+        
+        & .text h3 {
+          margin: 0;
+          font-size: 22px;
+        }
+        
+        & .text p {
+          color: #777;
+          line-height: 1.7;
+          margin: 10px 0 0;
+          font-size: 18px;
+        }
+      }
+    }
+    
+    /* events */
+    #events {
+      & .container {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      
+      & img {
+        max-width: 450px;
+        
+         @media (width <= 991px) {
+           display: none;
+         }
+      }
+      
+      & .info {
+        flex: 1;
+        
+        & h2 {
+          text-align: center;
+          margin: 40px 0 0;
+          font-size: 30px;
+        }
+        
+        & p {
+          text-align: center;
+          line-height: 1.7;
+          color: #777;
+          font-size: 19px;
+        }
+      }
+      
+      & .info .time {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        margin: 20px 0;
+        gap: 10px;
+        
+        & .unit {
+          --color: #d4d4d4;
+          border: 1px solid var(--color);
+          border-radius: 6px;
+          text-align: center;
+          width: 75px;
+          transition: var(--transition);
+          
+          & span { display: block; }
+          
+          & span:first-child {
+            font-size: 35px;
+            padding: 15px;
+            color: var(--main-color);
+          }
+          
+          & span:last-child {
+            padding: 8px 10px;
+            font-size: 13px;
+            border-top: 1px solid var(--color);
+            transition: var(--transition);
+          }
+          
+          &:hover {
+            --color: var(--main-color);
+          }
+        }
+      }
+      
+      & .subscribe {
+        width: 100%;
+        margin-top: 50px;
+        
+        & form {
+          display: flex;
+          width: max-content;
+          gap: 20px;
+          background: #f6f5f5;
+          margin: 20px auto;
+          padding: 30px;
+          border-radius: 50px;
+        }
+        
+        & input {
+          border: none;
+          outline: none;
+        }
+        
+        & input[type="submit"] {
+          border-radius: 50px;
+          background: var(--main-color);
+          color: #fff;
+          padding: 15px;
+          cursor: pointer;
+          transition: var(--transition);
+          
+          &:hover {
+            background: var(--main-color-alt);
+          }
+        }
+        
+        & input[type="email"] {
+          width: min(35vw, 450px);
+          caret-color: var(--main-color);
+          background: transparent;
+          
+          &::placeholder {
+            transition: opacity var(--transition);
+          }
+          
+          &:focus::placeholder {
+            opacity: 0;
+          }
+        }
+      }
+    }
+    
+    /* pricing */
+    #pricing {
+      background: var(--section-bg);
+      
+      & .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+      }
+      
+      & .box {
+        position: relative;
+        box-shadow: 0px 12px 20px 0px rgb(0 0 0 / 13%), 0px 2px 4px 0px rgb(0 0 0 / 12%);
+        background: #fff;
+        text-align: center;
+        z-index: 1;
+        
+        & h3 {
+          font-size: 25px;
+          letter-spacing: -1px;
+          margin: 30px 0;
+        }
+        
+        & i {
+          margin-bottom: 30px;
+          color: var(--main-color);
+          font-size: 80px;
+        }
+        
+        & .price {
+          margin-bottom: 20px;
+          
+          & span:first-child {
+            display: block;
+            font-size: 60px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--main-color);
+          }
+          
+          & span:last-child { color: #777; }
+        }
+        
+        ul {
+          list-style: disc;
+          text-align: left;
+          padding-left: 35px;
+          
+          & li {
+            padding: 20px;
+            
+            &::marker {
+              content: "\2713";
+              color: var(--main-color);
+            }
+          }
+        }
+        
+        & a {
+          display: block;
+          width: fit-content;
+          margin: 30px auto 40px;
+          padding: 15px 20px;
+          border: 2px solid var(--main-color);
+          color: var(--main-color);
+          transition: var(--transition);
+          
+          &:hover {
+            background: var(--main-color-alt);
+            border-color: var(--main-color-alt);
+            color: #fff;
+          }
+        }
+        
+        &:before, &:after {
+          content: "";
+          position: absolute;
+          width: 0;
+          height: 50%;
+          background: #f6f6f6;
+          z-index: -1;
+          transition: var(--transition);
+        }
+        
+        &:before {
+          top: 0;
+          left: 0;
+        }
+        
+        &:after {
+          bottom: 0;
+          right: 0;
+        }
+        
+        &:hover:before, 
+        &:hover:after {
+          width: 100%;
+        }
+        
+        &:has(.label) {
+          & .label {
+            position: absolute;
+            top: -3px;
+            right: 20px;
+            width: 40px;
+            writing-mode: vertical-rl;
+            background: var(--main-color);
+            color: #fff;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 10px 10px 35px;
+            
+            &:after {
+              content: "";
+              position: absolute;
+              bottom: 0;
+              right: 0;
+              border: 20px solid;
+              border-color: transparent transparent #fff;
+            }
+          }
+          
+          @media (width >= 1200px) {
+            top: -20px;
+          }
+        }
+      }
+    }
+    
+    /* videos */
+    #videos .holder {
+      display: flex;
+      justify-content: center;
+      background: var(--section-bg);
+      border: 1px solid #ddd;
+      
+      & .list {
+        min-width: 300px;
+        background: #fff;
+        
+        & .name {
+          display: flex;
+          justify-content: space-between;
+          padding: 20px;
+          background: #f4f4f4;
+          font-weight: bold;
+          color: var(--main-color);
+        }
+        
+        & ul li {
+          padding: 20px;
+          border-top: 1px solid var(--section-bg);
+          transition: var(--transition);
+          
+          & span {
+            display: block;
+            margin-top: 10px;
+            color: #777;
+          }
+          
+          &:hover {
+            background: #fafafa;
+            color: var(--main-color);
+          }
+        }
+      }
+      
+      & .preview {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background: #e2e2e2;
+        padding: 10px;
+        
+        & .info {
+          padding: 20px;
+          margin-top: 10px;
+          background: #fff;
+        }
+      }
+      
+      @media (width <= 991px) {
+        flex-direction: column;
+      }
+    }
+    
+    /* stats */
+    #stats {
+      position: relative;
+      background-image: url(https://consensus.app/home/wp-content/uploads/2024/04/sarawak__search_engine_website_powered_by_artificial_intelligen_1db1efe1-c908-4296-8b8a-201800207cc9.png);
+      background-size: cover;
+      min-height: 300px;
+      
+      &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgb(255 255 255 / 80%);
+      }
+      
+      & h2 {
+        position: relative;
+        font-size: 40px;
+        width: fit-content;
+        margin: 0 auto 50px;
+      }
+      
+      & .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+      }
+      
+      & .box {
+        position: relative;
+        background: #fff;
+        padding: 30px 15px;
+        text-align: center;
+        opacity: .8;
+        transition: var(--transition);
+        
+        &:before, &:after {
+          content: "";
+          position: absolute;
+          width: 2px;
+          height: 0;
+          background: var(--main-color);
+          transition: var(--transition);
+        }
+        
+        &:before {
+          bottom: 0;
+          left: 0;
+        }
+        
+        &:after {
+          top: 0;
+          right: 0;
+        }
+        
+        & span:first-of-type {
+          display: block;
+          font-size: 50px;
+          font-weight: bold;
+          margin-block: 10px;
+        }
+        
+        & span:last-of-type {
+          color: var(--main-color);
+          font-size: 20px;
+          font-style: italic;
+          font-weight: bold;
+        }
+        
+        &:hover { 
+          opacity: 1; 
+          
+          &:before, &:after {
+            height: 100%;
+          }
+        }
+      }
+    }
+    
+    /* discount */
+    #discount {
+      display: flex;
+      flex-wrap: wrap;
+      min-height: 100dvh;
+      
+      & div:first-child {
+        position: relative;
+        background-size: cover;
+        color: #fff;
+        z-index: 1;
+        animation: change-bg 10s linear infinite;
+        
+        & img {
+          width: 300px !important;
+          max-width: 100%;
+        }
+        
+        &:before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgb(23 135 224 / 97%);
+          z-index: -1;
+        }
+      }
+      
+      & div:last-child form {
+        & input, textarea {
+          display: block;
+          width: 100%;
+          padding: 15px;
+          border: none;
+          outline: none;
+        }
+        
+        & input:not([type=submit]), textarea {
+          margin-bottom: 25px;
+          border-bottom: 1px solid #ccc;
+          background: #f9f9f9;
+          caret-color: var(--main-color);
+        }
+        
+        & textarea {
+          resize: none;
+          height: 200px;
+        }
+        
+        & input[type=submit] {
+          background: var(--main-color);
+          color: #fff;
+          font-weight: bold;
+          font-size: 20px;
+          cursor: pointer;
+          transition: var(--transition);
+          
+          &:hover {
+            background: var(--main-color-alt);
+          }
+        }
+      }
+      
+      & div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-basis: 50%;
+        text-align: center;
+        padding: 0 20px;
+        
+        & h2 {
+          font-size: 40px;
+          letter-spacing: -2px;
+        }
+        
+        & p {
+          line-height: 1.6;
+          font-size: 18px;
+          max-width: 500px;
+        }
+        
+        @media (width <= 991px) {
+          flex-basis: 100%;
+        }
+      }
+    }
+    
+    /* footer */
+    footer {
+      background: #191919;
+      padding: 70px 0 0;
+      
+      & .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 40px;
+      }
+      
+      & .box {
+        & h3 {
+          color: #fff;
+          font-size: 50px;
+          margin: 0 0 20px;
+        }
+        
+        & p {
+          line-height: 2;
+          color: #b9b9b9;
+        }
+        
+        & .social {
+          display: flex;
+          
+          & li { margin-right: 10px; }
+          
+          & a {
+            background: #313131;
+            color: #b9b9b9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px; height: 50px;
+            font-size: 20px;
+            transition: var(--transition);
+            
+            &:has(.fa-facebook-f):hover { background: #1877f2; }
+            &:has(.fa-twitter):hover { background: #1da1f2; }
+            &:has(.fa-youtube):hover { background: #ff0000; }
+          }
+        }
+        
+        & .links li {
+          padding-block: 15px;
+          transition: var(--transition);
+          
+          &:not(:last-child) { border-bottom: 1px solid #444; }
+          
+          & a {
+            color: #b9b9b9;
+            transition: var(--transition);
+            
+            &:before {
+              font-family: "Font Awesome 5 Free";
+              content: "\f101";
+              font-weight: 900;
+              color: var(--main-color);
+              margin-right: 10px;
+            }
+          }
+          
+          &:hover {
+            padding-left: 10px;
+            
+            & a { color: #fff; }
+          }
+        }
+        
+        & .line {
+          display: flex;
+          align-items: center;
+          color: #b9b9b9;
+          margin-bottom: 30px;
+          
+          & i {
+            font-size: 25px;
+            color: var(--main-color);
+            margin-right: 10px;
+          }
+          
+          & .info {
+            line-height: 1.7;
+            flex: 1;
+            
+            & span { display: block; }
+          }
+        }
+      }
+      
+      & .copy {
+        padding-block: 25px;
+        text-align: center;
+        color: #fff;
+        margin: 50px 0 0;
+        border-top: 1px solid #444;
+      }
+    }
+    
+    /* animation */
+    @keyframes appear {
+      7%, 100% {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+    
+    @keyframes up-and-down {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-50px);
+      }
+    }
+    
+    @keyframes bouncing {
+      30%, 50%, 70% {
+        transform: translateY(0);
+      }
+      40%, 60% {
+        transform: translateY(-10px);
+      }
+    }
+    
+    @keyframes left-move {
+      50% {
+        left: 0;
+        width: 12;
+        height: 12px;
+      }
+      
+      100% {
+        left: 0;
+        width: 50%;
+        height: 100%;
+        border-radius: 0;
+      }
+    }
+    
+    @keyframes right-move {
+      50% {
+        right: 0;
+        width: 12;
+        height: 12px;
+      }
+      
+      100% {
+        right: 0;
+        width: 50%;
+        height: 100%;
+        border-radius: 0;
+      }
+    }
+    
+    @keyframes moving-arrow {
+       50% {
+        transform: translateX(-10px);
+      }
+      
+      100% {
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes flashing {
+      0%, 40% {
+        opacity: .2;
+      }
+      
+      100% {
+        opacity: 0;
+        width: 120%;
+        height: 120%;
+      }
+    }
+    
+    @keyframes change-bg {
+      0%, 100% {
+        background-image: url(https://elzerowebschool.github.io/HTML_And_CSS_Template_Three/imgs/discount-background1.jpg);
+      }
+      
+      50% {
+        background-image: url(https://elzerowebschool.github.io/HTML_And_CSS_Template_Three/imgs/discount-background2.jpg);
+      }
+    }
+    
+    @keyframes expand {
+      from {
+        width: 0;
+      }
+      to {
+        width: var(--progress-number);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  
+  <!-- header -->
+  <header>
+    <div class="container">
+      <h3>
+        <a href="http://www.amr.ct.ws/" class="logo">Amr</a>
+      </h3>
+      <ul class="main-nav">
+        <li><a href="#articles">Articles</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#features">Features</a></li>
+        <li>
+          <a href="#">
+            <label for="open">Other links</label>
+            <input id="open" type="checkbox" hidden />
+          </a>
+          
+          <!-- megamenu -->
+          <div class="megamenu">
+            <img width="600" src="https://png.pngtree.com/png-clipart/20200225/original/pngtree-vector-illustration-people-are-building-a-spaceship-rocket-engineers-and-worker-png-image_5268217.jpg" alt="image" />
+            <ul class="links">
+              <li>
+                <a href="#testimonials"><i class="far fa-comments fa-fw"></i> Testimonials</a>
+              </li>
+              <li>
+                <a href="#team"><i class="far fa-user fa-fw"></i> Team Members</a>
+              </li>
+              <li>
+                <a href="#services"><i class="far fa-building fa-fw"></i> Services</a>
+              </li>
+              <li>
+                <a href="#skills"><i class="far fa-check-circle fa-fw"></i> Our Skills</a>
+              </li>
+              <li>
+                <a href="#work"><i class="far fa-clipboard fa-fw"></i> How It Works?</a>
+              </li>
+            </ul>
+            <ul class="links">
+              <li>
+                <a href="#events"><i class="far fa-calendar-alt fa-fw"></i> Events</a>
+              </li>
+              <li>
+                <a href="#pricing"><i class="fas fa-server fa-fw"></i> Pricing Plans</a>
+              </li>
+              <li>
+                <a href="#videos"><i class="far fa-play-circle fa-fw"></i> Top Videos</a>
+              </li>
+              <li>
+                <a href="#stats"><i class="far fa-chart-bar fa-fw"></i> Stats</a>
+              </li>
+              <li>
+                <a href="#discount"><i class="fas fa-percent fa-fw"></i> Request A Discount</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+  
+  <!-- landing -->
+  <section class="landing">
+    <div class="container">
+      <div class="text">
+        <h1>Welcome to my world!</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+      </div>
+      <img width="600" src="https://png.pngtree.com/png-clipart/20230810/original/pngtree-landing-page-development-abstract-concept-vector-illustration-picture-image_7840699.png" alt="image" />
+    </div>
+    <a class="go-down" href="#articles">
+      <i class="fas fa-angle-double-down fa-2x"></i>
+    </a>
+  </section>
+  
+  <!-- articles -->
+  <section id="articles">
+    <h2 class="main-title">Articles</h2>
+    <div class="container">
+      <div class="box">
+        <img src="https://picsum.photos/600/300?random=1.webp" alt="image" />
+        <div class="content">
+          <h3>Title 1</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        </div>
+        <div class="info">
+          <a href="#">Read more</a>
+          <i class="fas fa-long-arrow-alt-right"></i>
+        </div>
+      </div>
+      <div class="box">
+        <img src="https://picsum.photos/600/300?random=2.webp" alt="image" />
+        <div class="content">
+          <h3>Title 2</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        </div>
+        <div class="info">
+          <a href="#">Read more</a>
+          <i class="fas fa-long-arrow-alt-right"></i>
+        </div>
+      </div>
+      <div class="box">
+        <img src="https://picsum.photos/600/300?random=3.webp" alt="image" />
+        <div class="content">
+          <h3>Title 3</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        </div>
+        <div class="info">
+          <a href="#">Read more</a>
+          <i class="fas fa-long-arrow-alt-right"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <div class="spikes"></div>
+  
+  <!-- gallery -->
+  <section id="gallery">
+    <h2 class="main-title">Gallery</h2>
+    <div class="container">
+      <div class="box">
+        <div class="image"><img src="https://picsum.photos/600/600?random=1.webp" alt="image" /></div>
+      </div>
+      <div class="box">
+        <div class="image"><img src="https://picsum.photos/600/600?random=2.webp" alt="image" /></div>
+      </div>
+      <div class="box">
+        <div class="image"><img src="https://picsum.photos/600/600?random=3.webp" alt="image" /></div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- features -->
+  <section id="features">
+    <h2 class="main-title">Features</h2>
+    <div class="container">
+      <div class="box" data-color="red">
+        <div class="image">
+          <img src="https://picsum.photos/550/600?random=1.webp" alt="image" />
+        </div>
+        <h2>Quality</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        <a href="#">More</a>
+      </div>
+      <div class="box" data-color="green">
+        <div class="image">
+          <img src="https://picsum.photos/550/600?random=2.webp" alt="image" />
+        </div>
+        <h2>Time</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        <a href="#">More</a>
+      </div>
+      <div class="box" data-color="blue">
+        <div class="image">
+          <img src="https://picsum.photos/550/600?random=3.webp" alt="image" />
+        </div>
+        <h2>Passion</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        <a href="#">More</a>
+      </div>
+    </div>
+  </section>
+  
+  <div class="spikes"></div>
+  
+  <!-- testimonials -->
+  <section id="testimonials">
+    <h2 class="main-title">Testimonials</h2>
+    <div class="container">
+      <div class="box">
+        <img src="https://www.gravatar.com/avatar/d9db18746e82656fe0395065a39b8b22?s=200" alt="image" />
+        <h3>Amr Mohamed</h3>
+        <span class="title">MERN Stack Dev.</span>
+        <div class="rate">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+        </div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+      </div>
+      <div class="box">
+        <img src="https://www.gravatar.com/avatar/d9db18746e82656fe0395065a39b8b22?s=200" alt="image" />
+        <h3>Osama Mohamed</h3>
+        <span class="title">Full Stack Web Dev.</span>
+        <div class="rate">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="far fa-star"></i>
+        </div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+      </div>
+      <div class="box">
+        <img src="https://www.gravatar.com/avatar/d9db18746e82656fe0395065a39b8b22?s=200" alt="image" />
+        <h3>Guest</h3>
+        <span class="title">Web Dev.</span>
+        <div class="rate">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="far fa-star"></i>
+          <i class="far fa-star"></i>
+        </div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- team -->
+  <section id="team">
+    <h2 class="main-title">Team Members</h2>
+    <div class="container">
+      <div class="box">
+        <div class="data">
+          <img src="https://www.gravatar.com/avatar/d9db18746e82656fe0395065a39b8b22?s=200" alt="image" />
+          <ul class="social">
+            <li>
+              <a href="#">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i class="fa-brands fa-x-twitter"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            <li>
+            </li>
+              <a href="#">
+                <i class="fab fa-youtube"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="info">
+          <h3>Name</h3>
+          <p>description</p>
+        </div>
+      </div>
+      <div class="box">
+        <div class="data">
+          <img src="https://www.gravatar.com/avatar/d9db18746e82656fe0395065a39b8b22?s=200" alt="image" />
+          <ul class="social">
+            <li>
+              <a href="#">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i class="fa-brands fa-x-twitter"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            <li>
+            </li>
+              <a href="#">
+                <i class="fab fa-youtube"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="info">
+          <h3>Name</h3>
+          <p>description</p>
+        </div>
+      </div>
+      <div class="box">
+        <div class="data">
+          <img src="https://www.gravatar.com/avatar/d9db18746e82656fe0395065a39b8b22?s=200" alt="image" />
+          <ul class="social">
+            <li>
+              <a href="#">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i class="fa-brands fa-x-twitter"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            <li>
+            </li>
+              <a href="#">
+                <i class="fab fa-youtube"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="info">
+          <h3>Name</h3>
+          <p>description</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <div class="spikes"></div>
+  
+  <!-- services -->
+  <section id="services">
+    <h2 class="main-title">Services</h2>
+    <div class="container">
+      <div class="box">
+        <i class="fas fa-user-shield fa-4x"></i>
+        <h3>Security</h3>
+        <div class="info">
+          <a href="#">Details</a>
+        </div>
+      </div>
+      <div class="box">
+        <i class="fas fa-tools fa-4x"></i>
+        <h3>Fixing Issues</h3>
+        <div class="info">
+          <a href="#">Details</a>
+        </div>
+      </div>
+      <div class="box">
+        <i class="fas fa-map-marked-alt fa-4x"></i>
+        <h3>Location</h3>
+        <div class="info">
+          <a href="#">Details</a>
+        </div>
+      </div>
+      <div class="box">
+        <i class="fas fa-laptop-code fa-4x"></i>
+        <h3>Coding</h3>
+        <div class="info">
+          <a href="#">Details</a>
+        </div>
+      </div>
+      <div class="box">
+        <i class="fas fa-palette fa-4x"></i>
+        <h3>Design</h3>
+        <div class="info">
+          <a href="#">Details</a>
+        </div>
+      </div>
+      <div class="box">
+        <i class="fas fa-bullhorn fa-4x"></i>
+        <h3>Marketing</h3>
+        <div class="info">
+          <a href="#">Details</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- skills -->
+  <section id="skills">
+    <h2 class="main-title">Our Skills</h2>
+    <div class="container">
+      <img width="600" src="https://static.vecteezy.com/system/resources/previews/025/279/575/large_2x/3d-laptop-and-program-code-development-web-coding-concept-coding-screen-3d-rendering-3d-rendering-of-laptop-3d-render-illustration-png.png" alt="image" />
+      <ul>
+        <li data-progress="90">
+          <h3>HTML</h3>
+          <div></div>
+        </li>
+        <li data-progress="85">
+          <h3>CSS</h3>
+          <div></div>
+        </li>
+        <li data-progress="80">
+          <h3>JS</h3>
+          <div></div>
+        </li>
+        <li data-progress="70">
+          <h3>Python</h3>
+          <div></div>
+        </li>
+      </ul>
+    </div>
+  </section>
+  
+  <div class="spikes"></div>
+  
+  <!-- work -->
+  <section id="work">
+    <h2 class="main-title">How It Works?</h2>
+    <div class="container">
+      <img width="600" src="https://static.vecteezy.com/system/resources/previews/044/428/139/non_2x/cartoon-character-with-the-desk-working-concept-illustration-free-png.png" alt="image" />
+      <div class="info">
+        <div class="box">
+          <i class="fa-solid fa-magnifying-glass-chart"></i>
+          <div class="text">
+            <h3>Business Analysis</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+          </div>
+        </div>
+        <div class="box">
+          <i class="fa-solid fa-house"></i>
+          <div class="text">
+            <h3>Architecture</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+          </div>
+        </div>
+        <div class="box">
+          <i class="fa-solid fa-laptop-code"></i>
+          <div class="text">
+            <h3>Developement</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- events -->
+  <section id="events">
+    <h2 class="main-title">Latest Events</h2>
+    <div class="container">
+      <img src="https://media.istockphoto.com/id/1241712498/vector/businessman-planning-events-deadlines-and-agenda.jpg?s=612x612&w=0&k=20&c=_YYsu8T3tK8Uc0W3zUQTqvkkNf-4PU1JCjHYBbXZ1ok=" alt="image" />
+      <div class="info">
+        <div class="time">
+          <div class="unit">
+            <span>15</span>
+            <span>Days</span>
+          </div>
+          <div class="unit">
+            <span>08</span>
+            <span>Hours</span>
+          </div>
+          <div class="unit">
+            <span>45</span>
+            <span>Minutes</span>
+          </div>
+          <div class="unit">
+            <span>55</span>
+            <span>Seconds</span>
+          </div>
+        </div>
+        <h2>Tech Master Event 2021</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, animi natus cum amet consequatur quasi earum, consectetur nesciunt officiis. Necessitatibus nihil, officiis accusamus, beatae voluptas reiciendis ut quo. Corporis, alias.</p>
+      </div>
+      <div class="subscribe">
+        <form action="#">
+          <input type="email" placeholder="Enter Your Email" />
+          <input type="submit" value="Subscribe" />
+        </form>
+      </div>
+    </div>
+  </section>
+  
+  <div class="spikes"></div>
+  
+  <!-- pricing -->
+  <section id="pricing">
+    <h2 class="main-title">Pricing Plans</h2>
+    <div class="container">
+      <div class="box">
+        <h3>Basic</h3>
+        <i class="fa-solid fa-hard-drive"></i>
+        <div class="price">
+          <span>$15</span>
+          <span>Per Month</span>
+        </div>
+        <ul>
+          <li>10GB HDD Space</li>
+          <li>5 Email Addresses</li>
+          <li>2 Subdomains</li>
+          <li>4 Databases</li>
+          <li>Basic Support</li>
+        </ul>
+        <a href="#">Choose Plan</a>
+      </div>
+      <div class="box">
+        <div class="label">Most Popular</div>
+        <h3>Advanced</h3>
+        <i class="fa-solid fa-hard-drive"></i>
+        <div class="price">
+          <span>$25</span>
+          <span>Per Month</span>
+        </div>
+        <ul>
+          <li>20GB HDD Space</li>
+          <li>10 Email Addresses</li>
+          <li>5 Subdomains</li>
+          <li>8 Databases</li>
+          <li>Advanced Support</li>
+        </ul>
+        <a href="#">Choose Plan</a>
+      </div>
+      <div class="box">
+        <h3>Professional</h3>
+        <i class="fa-solid fa-hard-drive"></i>
+        <div class="price">
+          <span>$45</span>
+          <span>Per Month</span>
+        </div>
+        <ul>
+          <li>50GB HDD Space</li>
+          <li>20 Email Addresses</li>
+          <li>10 Subdomains</li>
+          <li>20 Databases</li>
+          <li>Professional Support</li>
+        </ul>
+        <a href="#">Choose Plan</a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- videos -->
+  <section id="videos">
+    <h2 class="main-title">Top Videos</h2>
+    <div class="container">
+      <div class="holder">
+        <div class="list">
+          <div class="name">
+            Top Videos
+            <i class="fas fa-random"></i>
+          </div>
+          <ul>
+            <li>How To Create Sub Domain<span>05:18</span></li>
+            <li>Playing With The DNS <span>03:18</span></li>
+            <li>Everything About The Virtual Hosts <span>05:25</span></li>
+            <li>How To Monitor Your Website <span>04:16</span></li>
+            <li>Uncharted Beating The Last Boss <span>07:48</span></li>
+            <li>Ys Oath In Felghana Overview <span>03:12</span></li>
+            <li>Ys Series All Games Ending <span>08:10</span></li>
+          </ul>
+        </div>
+        <div class="preview">
+          <iframe width="100%" height="315" src="https://www.youtube.com/embed/DDcRK2n1aaE?si=iccyAY2iIqcWoRgm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <div class="info">Template 3 - #26 Video Section</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- stats -->
+  <section id="stats">
+    <h2>Our Awesome Stats</h2>
+    <div class="container">
+      <div class="box">
+        <i class="fas fa-user fa-2x fa-fw"></i>
+        <span>300</span>
+        <span>Clients</span>
+      </div>
+      <div class="box">
+        <i class="fas fa-code fa-2x fa-fw"></i>
+        <span>400</span>
+        <span>Projects</span>
+      </div>
+      <div class="box">
+        <i class="fas fa-globe-asia fa-2x fa-fw"></i>
+        <span>12</span>
+        <span>Countries</span>
+      </div>
+      <div class="box">
+        <i class="fas fa-money-bill-alt fa-2x fa-fw"></i>
+        <span>500K</span>
+        <span>Money</span>
+      </div>
+    </div>
+  </section>
+  <section id="discount">
+    <div>
+      <h2>We have a discount</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat in sequi harum? Sed at suscipit ex magni ratione nisi modi illo. Voluptates officia debitis, amet in sint quibusdam temporibus ab?</p>
+      <img width="400" src="https://elzerowebschool.github.io/HTML_And_CSS_Template_Three/imgs/discount.png" alt="image" />
+    </div>
+    <div>
+      <h2>Request a discount</h2>
+      <form action="#">
+        <input type="text" placeholder="Your name" name="name" />
+        <input type="email" placeholder="Your email" name="email" />
+        <input type="text" placeholder="Your phone" name="phone" />
+        <textarea placeholder="Tell us about your needs" name="message"></textarea>
+        <input type="submit" value="Send" />
+      </form>
+    </div>
+  </section>
+  
+  <!-- footer -->
+  <footer>
+    <div class="container">
+      <div class="box">
+        <h3>Amr</h3>
+        <ul class="social">
+          <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+          <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+          <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+        </ul>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum quibusdam similique ad architecto eaque debitis, soluta saepe vero? Nulla optio odio et obcaecati accusantium illo aut esse minus nemo, adipisci!</p>
+      </div>
+      <div class="box">
+        <ul class="links">
+          <li><a href="http://www.amr.ct.ws/">Important link 1</a></li>
+          <li><a href="http://www.amr.ct.ws/">Important link 2</a></li>
+          <li><a href="http://www.amr.ct.ws/">Important link 3</a></li>
+          <li><a href="http://www.amr.ct.ws/">Important link 4</a></li>
+          <li><a href="http://www.amr.ct.ws/">Important link 5</a></li>
+        </ul>
+      </div>
+      <div class="box">
+        <div class="line">
+          <i class="fas fa-map-marker-alt fa-fw"></i>
+          <div class="info">Inside the Sphinx, Giza, Egypt</div>
+        </div>
+        <div class="line">
+          <i class="far fa-clock fa-fw"></i>
+          <div class="info">Business Hours: 24/7</div>
+        </div>
+        <div class="line">
+          <i class="fas fa-phone-volume fa-fw"></i>
+          <div class="info">
+            <span>+201234567890</span>
+            <span>+201234567891</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="copy">Made by Amr & Elzero</p>
+  </footer>
+  
+  <a class="up" href="#">
+    <i class="fa-solid fa-angle-up"></i>
+  </a>
+  
+  <script>
+    // interval
+    let deadline = 1327555;
+    
+    let event = setInterval(() => {
+      deadline -= 1;
+      
+      let days = Math.floor(deadline / (60 * 60 * 24)) || 0,
+      hours = Math.floor(deadline / (60 * 60) - (days * 24)) || 0,
+      minutes = Math.floor(deadline / 60 - (days * 24 * 60) - (hours * 60)) || 0,
+      seconds = Math.floor(deadline - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60)) || 0,
+      units = document.querySelectorAll("#events .time .unit span:first-child"),
+      time = [days, hours, minutes, seconds];
+      
+      for (i in time) {
+        if (time[i] < 10) time[i] = `0${time[i]}`;
+        units[i].textContent = time[i];
+      }
+      
+      deadline == 0 ? clearInterval(event) : null;
+    }, 1000);
+  </script>
+</body>
+
+</html>
